@@ -8,7 +8,8 @@ class Contact:
                  company, company_address, home,
                  mobile_phone_num, work_phone_num, fax_num,
                  email1, email2, email3, homepage,
-                 birthday, anniversary,
+                 birthday_d, birthday_m, birthday_y,
+                 anniversary_d, anniversary_m, anniversary_y,
                  second_address, second_home, notes ):
         self.firstname = firstname
         self.middlename = middlename
@@ -26,8 +27,12 @@ class Contact:
         self.email2 = email2
         self.email3 = email3
         self.homepage = homepage
-        self.birthday = birthday
-        self.anniversary = anniversary
+        self.birthday_d = birthday_d
+        self.birthday_m = birthday_m
+        self.birthday_y = birthday_y
+        self.anniversary_d = anniversary_d
+        self.anniversary_m = anniversary_m
+        self.anniversary_y = anniversary_y
         self.second_address = second_address
         self.second_home = second_home
         self.notes = notes

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.firefox.webdriver import WebDriver
+from selenium.webdriver.support.ui import Select
 import unittest
 from contact import Contact
 
@@ -49,7 +50,7 @@ class add_new_contact(unittest.TestCase):
         wd.find_element_by_name("nickname").clear()
         wd.find_element_by_name("nickname").send_keys(contact.nickname)
         # add photo
-
+        # Почему-то не удается загрузить фото
         wd.find_element_by_name("photo").send_keys(contact.photo_path)
         # add title
         wd.find_element_by_name("title").click()
@@ -95,22 +96,25 @@ class add_new_contact(unittest.TestCase):
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(contact.homepage)
-        # add birthday
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[12]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[12]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[6]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[6]").click()
-        wd.find_element_by_name("byear").click()
-        wd.find_element_by_name("byear").clear()
-        wd.find_element_by_name("byear").send_keys(contact.birthday)
-        # add anniversary day
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[14]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[14]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[6]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[6]").click()
-        wd.find_element_by_name("ayear").click()
-        wd.find_element_by_name("ayear").clear()
-        wd.find_element_by_name("ayear").send_keys(contact.anniversary)
+
+        # select birthday day
+        Birthday_Dropdownlist_day = Select(wd.find_element_by_name("bday"))
+        Birthday_Dropdownlist_day.select_by_visible_text(contact.birthday_d)
+        # select birthday month
+        Birthday_Dropdownlist_month = Select(wd.find_element_by_name("bmonth"))
+        Birthday_Dropdownlist_month.select_by_visible_text(contact.birthday_m)
+        # select birthday year
+        wd.find_element_by_name("byear").send_keys(contact.anniversary_y)
+
+        # select anniversary day
+        Ann_Dropdownlist_day = Select(wd.find_element_by_name("aday"))
+        Ann_Dropdownlist_day.select_by_visible_text(contact.anniversary_d)
+        # select anniversary month
+        Ann_Dropdownlist_month = Select(wd.find_element_by_name("amonth"))
+        Ann_Dropdownlist_month.select_by_visible_text(contact.anniversary_m)
+        # select anniversary year
+        wd.find_element_by_name("ayear").send_keys(contact.anniversary_y)
+
         # add second address
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
@@ -144,7 +148,8 @@ class add_new_contact(unittest.TestCase):
                  company = "Springfield Nuclear Power Plant", company_address = "Springfield", home = "Springfield, 742 Evergreen Terrace",
                  mobile_phone_num = "+1(123)456-67-89", work_phone_num = "+1(123)456-67-89", fax_num = "+1(123)456-67-89",
                  email1 = "homer.simpson@fox.tv", email2 = "homer.simpson@fox.tv", email3 = "", homepage = "http://simpsons.com",
-                 birthday = "1959", anniversary = "1957",
+                 birthday_d = "12", birthday_m = "May", birthday_y = "1959",
+                 anniversary_d = "10", anniversary_m = "May", anniversary_y = "1957",
                  second_address = "Springfield", second_home = "742 Evergreen Terrace", notes = "No comments"))
         self.return_home_page(wd)
         self.logout(wd)
