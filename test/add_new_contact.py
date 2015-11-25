@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from model.contact import Contact
 import pytest
+from model.contact import Contact
 from fixture.application import Application
 
 
@@ -12,8 +12,8 @@ def app(request):
 
 
 def test_add_new_contact(app):
-    app.login(username="admin", password="secret")
-    app.create_contact(Contact(firstname = "Homer", middlename = "Jay", lastname = "Simpson", nickname = "simpson",
+    app.session.login(username="admin", password="secret")
+    app.contact.create(Contact(firstname = "Homer", middlename = "Jay", lastname = "Simpson", nickname = "simpson",
              photo_path = 'c:\\GitHub\\Task1\\res\\homer.jpg', title = "worker",
              company = "Springfield Nuclear Power Plant", company_address = "Springfield", home = "Springfield, 742 Evergreen Terrace",
              mobile_phone_num = "+1(123)456-67-89", work_phone_num = "+1(123)456-67-89", fax_num = "+1(123)456-67-89",
@@ -21,5 +21,5 @@ def test_add_new_contact(app):
              birthday_d = "12", birthday_m = "May", birthday_y = "1959",
              anniversary_d = "10", anniversary_m = "May", anniversary_y = "1957",
              second_address = "Springfield", second_home = "742 Evergreen Terrace", notes = "No comments"))
-    app.logout()
+    app.session.logout()
 
