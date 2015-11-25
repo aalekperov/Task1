@@ -4,6 +4,7 @@ import pytest
 from model.group import Group
 
 
+
 @pytest.fixture
 def app(request):
     fixture = Application()
@@ -12,12 +13,12 @@ def app(request):
 
 
 def test_new_group_add(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.create_group(Group(name="New group", header="New group header", footer="New group footer"))
-    app.logout()
+    app.session.logout()
 
 
 def test_new_empty_group_add(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.create_group(Group(name="", header="", footer=""))
-    app.logout()
+    app.session.logout()
