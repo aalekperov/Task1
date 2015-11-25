@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support.ui import Select
+import os
 import unittest
 from contact import Contact
 
@@ -16,10 +17,13 @@ class add_new_contact(unittest.TestCase):
         self.wd = WebDriver()
         self.wd.implicitly_wait(60)
 
-    def open_home_page(self, wd):
+    def open_home_page(self):
+        wd = self.wd
         wd.get("http://localhost/addressbook/")
 
-    def login(self, wd, username, password):
+    def login(self, username, password):
+        wd = self.wd
+        self.open_home_page()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
@@ -28,10 +32,13 @@ class add_new_contact(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_css_selector("input[type=\"submit\"]").click()
 
-    def add_new_contact_page(self, wd):
+    def add_new_contact_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("add new").click()
 
-    def create_contact(self, wd, contact):
+    def create_contact(self, contact):
+        wd = self.wd
+        self.add_new_contact_page()
         # fill new contact form
         # add first name
         wd.find_element_by_name("firstname").click()
@@ -51,7 +58,7 @@ class add_new_contact(unittest.TestCase):
         wd.find_element_by_name("nickname").send_keys(contact.nickname)
         # add photo
         # Почему-то не удается загрузить фото
-        wd.find_element_by_name("photo").send_keys(contact.photo_path)
+        wd.find_element_by_name("photo").send_keys(os.getcwd()+contact.photo_path)
         # add title
         wd.find_element_by_name("title").click()
         wd.find_element_by_name("title").clear()
@@ -129,30 +136,29 @@ class add_new_contact(unittest.TestCase):
         wd.find_element_by_name("notes").send_keys(contact.notes)
         # submit adding new contact
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.return_home_page()
 
-    def return_home_page(self, wd):
+    def return_home_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("home page").click()
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
 
     def test_add_new_contact(self):
 
-        wd = self.wd
-        self.open_home_page(wd)
-        self.login(wd, username="admin", password="secret")
-        self.add_new_contact_page(wd)
-        self.create_contact(wd, Contact(firstname = "Homer", middlename = "Jay", lastname = "Simpson", nickname = "simpson",
-                 photo_path = "./res/homer.jpg", title = "worker",
+        self.login(username="admin", password="secret")
+        self.create_contact(Contact(firstname = "Homer", middlename = "Jay", lastname = "Simpson", nickname = "simpson",
+                 photo_path = 'c:\\GitHub\\Task1\\res\\homer.jpg', title = "worker",
                  company = "Springfield Nuclear Power Plant", company_address = "Springfield", home = "Springfield, 742 Evergreen Terrace",
                  mobile_phone_num = "+1(123)456-67-89", work_phone_num = "+1(123)456-67-89", fax_num = "+1(123)456-67-89",
                  email1 = "homer.simpson@fox.tv", email2 = "homer.simpson@fox.tv", email3 = "", homepage = "http://simpsons.com",
                  birthday_d = "12", birthday_m = "May", birthday_y = "1959",
                  anniversary_d = "10", anniversary_m = "May", anniversary_y = "1957",
                  second_address = "Springfield", second_home = "742 Evergreen Terrace", notes = "No comments"))
-        self.return_home_page(wd)
-        self.logout(wd)
+        self.logout()
 
     def tearDown(self):
         self.wd.quit()
