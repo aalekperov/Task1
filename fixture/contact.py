@@ -121,7 +121,7 @@ class ContatHelper:
         wd.switch_to_alert().accept()
         self.return_home_page()
 
-    def modify_first_contact(self, contact):
+    def modify(self, contact):
         wd = self.app.wd
         # click to modify first contact
         wd.find_element_by_css_selector("img[alt=\"Edit\"]").click()
