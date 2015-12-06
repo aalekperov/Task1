@@ -3,14 +3,14 @@ __author__ = 'atash'
 
 class Contact:
 
-    def __init__(self, firstname, middlename, lastname, nickname,
-                 photo_path, title,
-                 company, company_address, home,
-                 mobile_phone_num, work_phone_num, fax_num,
-                 email1, email2, email3, homepage,
-                 birthday_d, birthday_m, birthday_y,
-                 anniversary_d, anniversary_m, anniversary_y,
-                 second_address, second_home, notes ):
+    def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None,
+                 photo_path=None, title=None,
+                 company=None, company_address=None, home=None,
+                 mobile_phone_num=None, work_phone_num=None, fax_num=None,
+                 email1=None, email2=None, email3=None, homepage=None,
+                 birthday_d=None, birthday_m=None, birthday_y=None,
+                 anniversary_d=None, anniversary_m=None, anniversary_y=None,
+                 second_address=None, second_home=None, notes=None ):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
