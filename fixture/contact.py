@@ -101,7 +101,7 @@ class ContatHelper:
 
     def select_first_contact(self):
         wd = self.app.wd
-        wd.find_element_by_css_selector("img[alt=\"Edit\"]").click()
+        wd.find_element_by_name("selected[]").click()
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -114,6 +114,8 @@ class ContatHelper:
     def modify(self, new_contact):
         wd = self.app.wd
         self.select_first_contact()
+        # click modify
+        wd.find_element_by_css_selector("img[alt=\"Edit\"]").click()
         self.fill_contact_form(new_contact)
         #submit update
         wd.find_element_by_name("update").click()
@@ -122,3 +124,7 @@ class ContatHelper:
     def return_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
+
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))
