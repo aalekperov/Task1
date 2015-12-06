@@ -105,6 +105,7 @@ class ContatHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
+        self.open_home_page()
         self.select_first_contact()
         #submit deleting
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
@@ -113,6 +114,7 @@ class ContatHelper:
 
     def modify(self, new_contact):
         wd = self.app.wd
+        self.open_home_page()
         self.select_first_contact()
         # click modify
         wd.find_element_by_css_selector("img[alt=\"Edit\"]").click()
@@ -124,6 +126,11 @@ class ContatHelper:
     def return_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
+
+    def open_home_page(self):
+        wd = self.app.wd
+        if not wd.current_url.endswith("/addressbook/"):
+            wd.find_element_by_link_text("home").click()
 
     def count(self):
         wd = self.app.wd
