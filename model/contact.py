@@ -10,7 +10,7 @@ class Contact:
                  email1=None, email2=None, email3=None, homepage=None,
                  birthday_d=None, birthday_m=None, birthday_y=None,
                  anniversary_d=None, anniversary_m=None, anniversary_y=None,
-                 second_address=None, second_home=None, notes=None ):
+                 second_address=None, second_home=None, notes=None, id=None ):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
@@ -36,3 +36,4 @@ class Contact:
         self.second_address = second_address
         self.second_home = second_home
         self.notes = notes
+        self.id = id

@@ -1,6 +1,7 @@
 __author__ = 'Atash'
 from selenium.webdriver.support.ui import Select
 import os
+from model.contact import Contact
 
 
 class ContatHelper:
@@ -135,3 +136,13 @@ class ContatHelper:
     def count(self):
         wd = self.app.wd
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.open_home_page()
+        contacts = []
+        for element in wd.find_elements_by_name("entry"):
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(id = id))
+        return contacts
+
