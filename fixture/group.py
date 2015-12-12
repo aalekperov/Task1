@@ -49,7 +49,7 @@ class GroupHelper:
         # return to group page
         self.return_to_groups_page()
 
-    def modify(self, new_group):
+    def modify_first_group(self, new_group):
         wd = self.app.wd
         self.open_groups_page()
         self.select_first_group()

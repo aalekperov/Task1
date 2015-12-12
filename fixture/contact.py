@@ -2,6 +2,7 @@ __author__ = 'Atash'
 from selenium.webdriver.support.ui import Select
 import os
 from model.contact import Contact
+from selenium.webdriver.common.by import By
 
 
 class ContatHelper:
@@ -113,7 +114,7 @@ class ContatHelper:
         wd.switch_to_alert().accept()
         self.return_home_page()
 
-    def modify(self, new_contact):
+    def modify_first_contact(self, new_contact):
         wd = self.app.wd
         self.open_home_page()
         self.select_first_contact()
@@ -142,7 +143,10 @@ class ContatHelper:
         self.open_home_page()
         contacts = []
         for element in wd.find_elements_by_name("entry"):
+            td_values = element.find_elements(By.TAG_NAME, "td")
+            last_name = td_values[1].text
+            first_name = td_values[2].text
             id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(id = id))
+            contacts.append(Contact(lastname=last_name, firstname=first_name, id = id))
         return contacts
 
