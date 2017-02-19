@@ -1,4 +1,5 @@
 __author__ = 'Atash'
+
 from random import randrange
 from model.contact import Contact
 

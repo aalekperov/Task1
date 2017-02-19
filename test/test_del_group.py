@@ -1,6 +1,8 @@
 __author__ = 'Atash'
+
 from model.group import Group
 from random import randrange
+
 
 def test_delete_some_group(app):
     old_groups = app.group.get_group_list()
