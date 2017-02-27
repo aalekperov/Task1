@@ -39,7 +39,7 @@ class ContatHelper:
         self.change_field_value("company", contact.company)
         # add company address
         self.change_field_value("address", contact.company_address)
-        # add home
+        # add homephone
         self.change_field_value("home", contact.home)
         # add mobile number
         self.change_field_value("mobile", contact.mobile_phone_num)
@@ -61,7 +61,7 @@ class ContatHelper:
         self.select_anniversaryday(contact.anniversary_d, contact.anniversary_m, contact.anniversary_y)
         # add second address
         self.change_field_value("address2", contact.second_address)
-        # add home address 2
+        # add home phone 2
         self.change_field_value("phone2", contact.second_home)
         # add notes
         self.change_field_value("notes", contact.notes)
@@ -154,11 +154,41 @@ class ContatHelper:
             wd = self.app.wd
             self.open_home_page()
             self.contact_cash = []
-            for element in wd.find_elements_by_name("entry"):
-                td_values = element.find_elements(By.TAG_NAME, "td")
-                last_name = td_values[1].text
-                first_name = td_values[2].text
-                id = element.find_element_by_name("selected[]").get_attribute("value")
+            for row in wd.find_elements_by_name("entry"):
+                cells = row.find_elements(By.TAG_NAME, "td")
+                last_name = cells[1].text
+                first_name = cells[2].text
+                id = row.find_element_by_name("selected[]").get_attribute("value")
                 self.contact_cash.append(Contact(lastname=last_name, firstname=first_name, id = id))
         return list(self.contact_cash)
 
+
+    def open_modify_contact_by_index(self, index):
+        wd = self.app.wd
+        self.open_home_page()
+        row = wd.find_elements_by_name("entry")[index]
+        cell = row.find_elements(By.TAG_NAME, "td")[7]
+        cell.find_elements(By.TAG_NAME, "a").click()
+
+
+    def open_contact_view_by_index(self, index):
+        wd = self.app.wd
+        self.open_home_page()
+        row = wd.find_elements_by_name("entry")[index]
+        cell = row.find_elements(By.TAG_NAME, "td")[6]
+        cell.find_elements(By.TAG_NAME, "a").click()
+
+
+    def get_contact_info_from_edit_page(self, index):
+        wd = self.app.wd
+        self.open_modify_contact_by_index(index)
+        firstname = wd.find_elements_by_name("firstname").get_attribute("value")
+        lastname = wd.find_elements_by_name("lastname").get_attribute("value")
+        id = wd.find_elements_by_name("id").get_attribute("value")
+        homephone = wd.find_elements_by_name("home").get_attribute("value")
+        mobile_phone = wd.find_elements_by_name("mobile").get_attribute("value")
+        work_phone = wd.find_elements_by_name("work").get_attribute("value")
+        second_homephone = wd.find_elements_by_name("phone2").get_attribute("value")
+        return Contact(firstname=firstname, lastname=lastname, id=id,
+                       home=homephone, mobile_phone_num=mobile_phone,
+                       work_phone_num=work_phone, second_home=second_homephone)
