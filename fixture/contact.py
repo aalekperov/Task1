@@ -127,7 +127,7 @@ class ContatHelper:
         self.open_home_page()
         self.select_contact_by_index(index)
         # click modify
-        wd.find_elements_by_css_selector("img[alt=\"Edit\"]")[index].click()
+        wd.find_elements_by_css_selector('img[alt="Edit"]')[index].click()
         self.fill_contact_form(new_contact)
         #submit update
         wd.find_element_by_name("update").click()
