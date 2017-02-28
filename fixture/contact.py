@@ -160,8 +160,12 @@ class ContatHelper:
                 last_name = cells[1].text
                 first_name = cells[2].text
                 all_phones = cells[5].text
+                all_mails = cells[4].text
+                address = cells[3].text
                 id = row.find_element_by_name("selected[]").get_attribute("value")
                 self.contact_cash.append(Contact(lastname=last_name, firstname=first_name, id = id,
+                                                 company_address=address,
+                                                 all_mails_from_home_page = all_mails,
                                                  all_phones_from_home_page=all_phones))
         return list(self.contact_cash)
 
@@ -185,11 +189,19 @@ class ContatHelper:
         firstname = wd.find_element_by_name("firstname").get_attribute("value")
         lastname = wd.find_element_by_name("lastname").get_attribute("value")
         id = wd.find_element_by_name("id").get_attribute("value")
+        address = wd.find_element_by_name("address").get_attribute("value")
+        #e-mails
+        email1 = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
+        #phones
         homephone = wd.find_element_by_name("home").get_attribute("value")
         mobile_phone = wd.find_element_by_name("mobile").get_attribute("value")
         work_phone = wd.find_element_by_name("work").get_attribute("value")
         second_homephone = wd.find_element_by_name("phone2").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, id=id,
+                       company_address=address,
+                       email1=email1, email2=email2, email3=email3,
                        home=homephone, mobile_phone_num=mobile_phone,
                        work_phone_num=work_phone, second_home=second_homephone)
 
