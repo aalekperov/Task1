@@ -14,15 +14,25 @@ def random_string_name(prefix, maxlen):
     symbols = string.ascii_letters
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
+#случайный номер телефона.
+def random_string_date(maxlen):
+    symbols = string.digits
+    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+
 #случайная дата.
-def random_string_date(prefix, maxlen):
-    symbols = string.ascii_letters
-    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+def random_string_date():
+    monthes = ("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+    random_day = random.randint(1,32)
+    random_month = random.choice(monthes)
+    random_year = random.randint(1850, 2017)
+    date_tuple = (random_day, random_month, random_year)
+    return date_tuple
+
 
 #случайный мейл.
-def random_string_email(prefix, maxlen):
-    symbols = string.ascii_letters
-    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+def random_string_email(maxlen):
+    symbols = string.ascii_letters + string.digits + "-" + "_"
+    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]) + "@" + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]) + "." + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
 testdata = [Contact(firstname = "", middlename = "", lastname = "", nickname = "",
