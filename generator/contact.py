@@ -13,7 +13,7 @@ except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
 
-n = 4
+n = 1
 f = "data/contacts.json"
 
 for o, a in opts:
@@ -59,13 +59,13 @@ def random_string_email(maxlen):
            "." + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
-testcontactdata = [Contact(firstname ="", middlename ="", lastname ="", nickname ="",
-                           title="", company = "", company_address = "",
-                           home = "", mobile_phone_num = "", work_phone_num = "", fax_num = "",
-                           email1 = "", email2 = "", email3 = "", homepage = "",
-                           birthday_d = "", birthday_m = "-", birthday_y = "",
-                           anniversary_d = "", anniversary_m = "-", anniversary_y = "",
-                           second_address = "", second_home = "", notes = "")] + [
+testdata = [Contact(firstname ="", middlename ="", lastname ="", nickname ="",
+                    title="", company = "", company_address = "",
+                    home = "", mobile_phone_num = "", work_phone_num = "", fax_num = "",
+                    email1 = "", email2 = "", email3 = "", homepage = "",
+                    birthday_d = "", birthday_m = "-", birthday_y = "",
+                    anniversary_d = "", anniversary_m = "-", anniversary_y = "",
+                    second_address = "", second_home = "", notes = "")] + [
     Contact(firstname=random_string_name("firstname_", 10), middlename=random_string_name("middlename_", 7), lastname=random_string_name("lastname_", 7), nickname=random_string_name("nickname_", 7),
             title=random_string_common("title_", 40), company=random_string_common("company_", 8), company_address=random_string_common("company_address_", 7),
             home=random_string_phone(12), mobile_phone_num=random_string_phone(12), work_phone_num=random_string_phone(12), fax_num=random_string_phone(12),
@@ -74,7 +74,7 @@ testcontactdata = [Contact(firstname ="", middlename ="", lastname ="", nickname
             anniversary_d=str(random_date_tuple()[0]), anniversary_m=random_date_tuple()[1], anniversary_y=str(random_date_tuple()[2]),
             second_address=random_string_common("second address_", 20), second_home=random_string_phone(12)
             )
-            for i in range(5)
+            for i in range(n)
 ]
 
 
@@ -82,4 +82,4 @@ file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 
 with open(file, "w") as out:
     jsonpickle.set_encoder_options("json", indent=2)
-    out.write(jsonpickle.encode(testcontactdata))
+    out.write(jsonpickle.encode(testdata))
